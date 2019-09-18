@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="signup.css" type="text/css" />
+    <title>Signup Page</title>
+    <style>
+        #msg {
+            visibility: hidden;
+            min-width: 250px;
+            background-color: yellow;
+            color: #000;
+            text-align: center;
+            border-radius: 2px;
+            padding: 16px;
+            position: fixed;
+            z-index: 1;
+            right: 36.5%;
+            top: 30px;
+            font-size: 17px;
+        }
+
+        #msg.show {
+            visibility: visible;
+            -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
+
+        @-webkit-keyframes fadein {
+            from {top: 0; opacity: 0;}
+            to {top: 30px; opacity: 1;}
+        }
+
+        @keyframes fadein {
+            from {top: 0; opacity: 0;}
+            to {top: 0; opacity: 1;}
+        }
+
+        @-webkit-keyframes fadeout {
+            from {top: 30px; opacity: 1;}
+            to {top: 0; opacity: 0;}
+        }
+        @keyframes fadeout {
+            from {top: 30px; opacity: 1;}
+            to{top: 0; opacity: 0;}
+        }
+    </style>
+</head>
+<body>
+<?php
+	require('db.php');
+    // If form submitted, insert values into the database.
+    if (isset($_REQUEST['username'])){
+		$username = stripslashes($_REQUEST['username']); // removes backslashes
+		$username = mysqli_real_escape_string($con,$username); //escapes special characters in a string
+		$email = stripslashes($_REQUEST['email']);
+		$email = mysqli_real_escape_string($con,$email);
+		$password = stripslashes($_REQUEST['password']);
+		$password = mysqli_real_escape_string($con,$password);
+
+		$trn_date = date("Y-m-d H:i:s");
+        $query = "INSERT into `users` (username, password, email, trn_date) VALUES ('$username', '".md5($password)."', '$email', '$trn_date')";
+        $result = mysqli_query($con,$query);
+        if($result){
+            echo "<div class='form'><h3>You are registered successfully.</h3><br/>Click here to <a href='login.php'>Login</a></div>";
+        }
+    }else{
+?>
+
+    <div class="signup">
+        <form>
+            <h2 style="color: #fff">Ninja Team Sign Up</h2>
+            <input type="email" name="Your Email" placeholder="Your Email"><br><br>
+            <input type="email" name="Confirm Email" placeholder="Confirm Email"><br><br>
+            <input type="text" name="Country" placeholder="Country"><br><br>
+            <input type="text" name="State" placeholder="State"><br><br>
+            <input type="password" name="password" placeholder="password"><br><br>
+            <input type="password" name="Confirm Password" placeholder="Confirm Password"><br><br>
+            <input type="button" value="Sign up" onclick="myFunction()"><br><br>
+            <div id="msg">Congratulations... You signed up successfully.</div>
+            <script>
+                function myFunction() {
+                    var x = document.getElementById("msg");
+                    x.className = "show";
+                    setTimeout(function() { x.className = x.className.replace("show", ""); }, 3000);
+                 }
+            </script>
+            Already have account? <a href="login.html" style="text-decoration: none; font-family: 'Play', sans-serif; color: yellow;">&nbsp;Log In</a>
+        </form>
+    </div> 
+    <?php } ?>
+</body>
+</html>
