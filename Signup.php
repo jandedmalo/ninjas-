@@ -52,16 +52,19 @@
 <?php
 	require('db.php');
     // If form submitted, insert values into the database.
-    if (isset($_REQUEST['username'])){
-		$username = stripslashes($_REQUEST['username']); // removes backslashes
-		$username = mysqli_real_escape_string($con,$username); //escapes special characters in a string
-		$email = stripslashes($_REQUEST['email']);
-		$email = mysqli_real_escape_string($con,$email);
-		$password = stripslashes($_REQUEST['password']);
+    if (isset($_REQUEST['email'])){
+		$email = stripslashes($_REQUEST['email']); // removes backslashes
+		$email = mysqli_real_escape_string($con,$email); //escapes special characters in a string
+		$country = stripslashes($_REQUEST['country']);
+		$country = mysqli_real_escape_string($con,$country);
+		$state = stripslashes($_REQUEST['state']);
+        $state = mysqli_real_escape_string($con,$state);
+        $password = stripslashes($_REQUEST['password']);
 		$password = mysqli_real_escape_string($con,$password);
 
+
 		$trn_date = date("Y-m-d H:i:s");
-        $query = "INSERT into `users` (username, password, email, trn_date) VALUES ('$username', '".md5($password)."', '$email', '$trn_date')";
+        $query = "INSERT into `users` (country, state, password, email, trn_date) VALUES ('$country', '$state', '".md5($password)."', '$email', '$trn_date')";
         $result = mysqli_query($con,$query);
         if($result){
             echo "<div class='form'><h3>You are registered successfully.</h3><br/>Click here to <a href='login.php'>Login</a></div>";
@@ -70,15 +73,15 @@
 ?>
 
     <div class="signup">
-        <form>
+        <form action="" method="POST">
             <h2 style="color: #fff">Ninja Team Sign Up</h2>
-            <input type="email" name="Your Email" placeholder="Your Email"><br><br>
-            <input type="email" name="Confirm Email" placeholder="Confirm Email"><br><br>
-            <input type="text" name="Country" placeholder="Country"><br><br>
-            <input type="text" name="State" placeholder="State"><br><br>
+            <input type="email" name="email" placeholder="Your Email"><br><br>
+            <input type="email" name="email" placeholder="Confirm Email"><br><br>
+            <input type="text" name="country" placeholder="Country"><br><br>
+            <input type="text" name="state" placeholder="State"><br><br>
             <input type="password" name="password" placeholder="password"><br><br>
             <input type="password" name="Confirm Password" placeholder="Confirm Password"><br><br>
-            <input type="button" value="Sign up" onclick="myFunction()"><br><br>
+            <input type="submit" name="submit" value="Sign up" onclick="myFunction()"><br><br>
             <div id="msg">Congratulations... You signed up successfully.</div>
             <script>
                 function myFunction() {
@@ -87,7 +90,7 @@
                     setTimeout(function() { x.className = x.className.replace("show", ""); }, 3000);
                  }
             </script>
-            Already have account? <a href="login.html" style="text-decoration: none; font-family: 'Play', sans-serif; color: yellow;">&nbsp;Log In</a>
+            Already have account? <a href="login.php" style="text-decoration: none; font-family: 'Play', sans-serif; color: yellow;">&nbsp;Log In</a>
         </form>
     </div> 
     <?php } ?>
