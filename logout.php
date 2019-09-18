@@ -25,6 +25,6 @@ header("Location: login.php"); // Redirecting To Home Page
         <h1>(HNG) Ninjas Team</h1>
     </div>
     
-    <?php } ?>
+    
 </body>
 </html>

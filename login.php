@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">git 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="login.css">
     <title>Login Page</title>
@@ -34,7 +34,7 @@
 ?>
 
     <div class="brand">
-        <h1>(HNG) Ninjas Team</h1>
+        <h1 style="text-align:center;">(HNG) Ninjas Team</h1>
     </div>
     <div class="signin">
         <form action="" method="post">
